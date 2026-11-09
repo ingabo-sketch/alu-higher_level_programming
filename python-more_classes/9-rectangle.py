@@ -60,8 +60,8 @@ class Rectangle:
             height (int): The height of the rectangle.
         """
         type(self).number_of_instances += 1
-        self.height = height
         self.width = width
+        self.height = height
 
     def area(self):
         """Return the area of the rectangle."""
