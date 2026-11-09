@@ -1,0 +1,47 @@
+Doctest cases for the MyList class.
+===================================
+
+Import and build a list:
+
+    >>> MyList = __import__('1-my_list').MyList
+    >>> my_list = MyList()
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+An empty list stays empty when printed sorted:
+
+    >>> empty = MyList()
+    >>> print(empty)
+    []
+    >>> empty.print_sorted()
+    []
+
+Negative numbers and a single value:
+
+    >>> negatives = MyList()
+    >>> negatives.append(-2)
+    >>> negatives.append(0)
+    >>> negatives.append(-10)
+    >>> negatives.print_sorted()
+    [-10, -2, 0]
+    >>> one = MyList()
+    >>> one.append(7)
+    >>> one.print_sorted()
+    [7]
+
+The original order is kept after sorting:
+
+    >>> same = MyList([3, 1, 2])
+    >>> same.print_sorted()
+    [1, 2, 3]
+    >>> print(same)
+    [3, 1, 2]
