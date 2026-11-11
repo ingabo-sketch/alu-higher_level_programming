@@ -34,3 +34,20 @@ Reject division by zero:
     >>> matrix_divided([[1, 2], [3, 4]], 0)
     Traceback (most recent call last):
     ZeroDivisionError: division by zero
+
+Divide by infinity and get zeros:
+
+    >>> matrix_divided([[1, 2], [3, 4]], float("inf"))
+    [[0.0, 0.0], [0.0, 0.0]]
+
+Reject a call that omits the divisor:
+
+    >>> matrix_divided([[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    TypeError: matrix_divided() missing 1 required positional argument: 'div'
+
+Reject a call that omits both arguments:
+
+    >>> matrix_divided()
+    Traceback (most recent call last):
+    TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' and 'div'
