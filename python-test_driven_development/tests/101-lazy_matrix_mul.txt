@@ -1,0 +1,14 @@
+Doctest for NumPy matrix multiplication
+======================================
+
+    >>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
+
+Multiply two square matrices:
+
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]).tolist()
+    [[7, 10], [15, 22]]
+
+Multiply a row by a matrix:
+
+    >>> lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]).tolist()
+    [[13, 16]]
