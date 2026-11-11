@@ -12,3 +12,77 @@ Multiply a row by a matrix:
 
     >>> lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]).tolist()
     [[13, 16]]
+
+Reject a first argument that is not a list:
+
+    >>> lazy_matrix_mul("foo", [[1]])
+    Traceback (most recent call last):
+    ValueError: Scalar operands are not allowed, use '*' instead
+
+Reject a second argument that is not a list:
+
+    >>> lazy_matrix_mul([[1]], "foo")
+    Traceback (most recent call last):
+    ValueError: Scalar operands are not allowed, use '*' instead
+
+Reject an empty first matrix:
+
+    >>> lazy_matrix_mul([], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    ValueError: shapes (0,) and (2,2) not aligned: 0 (dim 0) != 2 (dim 0)
+
+    >>> lazy_matrix_mul([[]], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    ValueError: shapes (1,0) and (2,2) not aligned: 0 (dim 1) != 2 (dim 0)
+
+Reject an empty second matrix:
+
+    >>> lazy_matrix_mul([[1, 2]], [])
+    Traceback (most recent call last):
+    ValueError: shapes (1,2) and (0,) not aligned: 2 (dim 1) != 0 (dim 0)
+
+    >>> lazy_matrix_mul([[1, 2]], [[]])
+    Traceback (most recent call last):
+    ValueError: shapes (1,2) and (1,0) not aligned: 2 (dim 1) != 1 (dim 0)
+
+Reject a non-number in the first matrix:
+
+    >>> lazy_matrix_mul([[1, "2"]], [[3], [4]])
+    Traceback (most recent call last):
+    TypeError: invalid data type for einsum
+
+Reject a non-number in the second matrix:
+
+    >>> lazy_matrix_mul([[1, 2]], [[3], ["4"]])
+    Traceback (most recent call last):
+    TypeError: invalid data type for einsum
+
+Reject uneven rows in the first matrix:
+
+    >>> lazy_matrix_mul([[1, 2], [3]], [[4], [5]])
+    Traceback (most recent call last):
+    ValueError: setting an array element with a sequence.
+
+Reject uneven rows in the second matrix:
+
+    >>> lazy_matrix_mul([[1, 2]], [[3, 4], [5]])
+    Traceback (most recent call last):
+    ValueError: setting an array element with a sequence.
+
+Reject matrices that cannot be multiplied:
+
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2]])
+    Traceback (most recent call last):
+    ValueError: shapes (2,2) and (1,2) not aligned: 2 (dim 1) != 1 (dim 0)
+
+Reject a call that omits the second matrix:
+
+    >>> lazy_matrix_mul([[1, 2]])
+    Traceback (most recent call last):
+    TypeError: lazy_matrix_mul() missing 1 required positional argument: 'm_b'
+
+Reject a call that omits both matrices:
+
+    >>> lazy_matrix_mul()
+    Traceback (most recent call last):
+    TypeError: lazy_matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
