@@ -1,0 +1,37 @@
+Doctest for printing a square
+==============================
+
+    >>> print_square = __import__('4-print_square').print_square
+
+Print a square of size 4:
+
+    >>> print_square(4)
+    ####
+    ####
+    ####
+    ####
+
+Print a square of size 1:
+
+    >>> print_square(1)
+    #
+
+Print nothing for a square of size 0:
+
+    >>> print_square(0)
+
+Reject a negative size:
+
+    >>> print_square(-1)
+    Traceback (most recent call last):
+    ValueError: size must be >= 0
+
+Reject a float, including a negative float:
+
+    >>> print_square(2.5)
+    Traceback (most recent call last):
+    TypeError: size must be an integer
+
+    >>> print_square(-2.5)
+    Traceback (most recent call last):
+    TypeError: size must be an integer
