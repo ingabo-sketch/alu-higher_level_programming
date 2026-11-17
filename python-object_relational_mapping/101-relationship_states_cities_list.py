@@ -2,7 +2,7 @@
 """List every state and the cities that belong to it."""
 import sys
 from sqlalchemy import create_engine
-from sqlalchemy.orm import contains_eager, sessionmaker
+from sqlalchemy.orm import joinedload, sessionmaker
 from relationship_state import Base, State
 from relationship_city import City
 
@@ -14,16 +14,16 @@ if __name__ == "__main__":
         pool_pre_ping=True
     )
     session = sessionmaker(bind=engine)()
-    states = session.query(State).outerjoin(State.cities).options(
-        contains_eager(State.cities)
-    ).order_by(State.id, City.id).all()
+    query = session.query(State).order_by(State.id)
+    if hasattr(State.cities, "property"):
+        query = query.options(joinedload(State.cities))
     seen = set()
-    for state in states:
+    for state in query.all():
         if state.id in seen:
             continue
         seen.add(state.id)
         print("{}: {}".format(state.id, state.name))
-        cities = [city for city in state.cities if city is not None]
-        for city in sorted(cities, key=lambda item: item.id):
+        cities = sorted(state.cities, key=lambda city: city.id)
+        for city in cities:
             print("\t{}: {}".format(city.id, city.name))
     session.close()
