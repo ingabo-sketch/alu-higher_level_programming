@@ -19,5 +19,4 @@ if __name__ == "__main__":
     state.cities = [City(name="San Francisco")]
     session.add(state)
     session.commit()
-    print(state.id)
     session.close()
