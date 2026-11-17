@@ -81,6 +81,21 @@ class TestBase(unittest.TestCase):
             loaded, [first.to_dictionary(), second.to_dictionary()]
         )
 
+    def test_save_empty_and_none_overwrite(self):
+        """Replace a saved file when the list is empty or missing."""
+        Rectangle.save_to_file([Rectangle(1, 2, 0, 0, 1)])
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", "r", encoding="utf-8") as file:
+            self.assertEqual(file.read(), "[]")
+        Square.save_to_file([Square(3, 0, 0, 1)])
+        Square.save_to_file(None)
+        with open("Square.json", "r", encoding="utf-8") as file:
+            self.assertEqual(file.read(), "[]")
+        Square.save_to_file([Square(3, 0, 0, 1)])
+        Square.save_to_file([])
+        with open("Square.json", "r", encoding="utf-8") as file:
+            self.assertEqual(file.read(), "[]")
+
     def test_save_to_file_overwrites(self):
         """Replace an existing JSON file on the next save."""
         Rectangle.save_to_file([Rectangle(1, 1, 0, 0, 1)])

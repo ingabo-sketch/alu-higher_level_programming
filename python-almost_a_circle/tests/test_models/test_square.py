@@ -31,6 +31,27 @@ class TestSquare(unittest.TestCase):
             lowered.display()
         self.assertEqual(output.getvalue(), "\n\n\n ###\n ###\n ###\n")
 
+    def test_plain_square_keeps_its_size(self):
+        """Keep the given size when position and id are omitted."""
+        square = Square(5)
+        self.assertEqual(square.size, 5)
+        self.assertEqual(square.area(), 25)
+        self.assertEqual(square.x, 0)
+        self.assertEqual(square.y, 0)
+
+    def test_constructor_rejects_bad_values(self):
+        """Reject a bad size or position when the square is created."""
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            Square(0)
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            Square(-5)
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Square("9")
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Square(1, 0, "3")
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            Square(2, -1)
+
     def test_size_getter_and_setter(self):
         """Change both sides together and keep the width error text."""
         square = Square(5, 0, 0, 1)
